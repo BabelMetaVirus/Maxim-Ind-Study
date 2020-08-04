@@ -33,17 +33,17 @@ bool App::Initialize(void){
 bool App::Run(void){
     bool flag = true;
     bool div3 = current % 3 == 0;
-    bool div5 = current % 5 == 0;
+    bool div8 = current % 8 == 0;
     
     if(div3){
         std::cout << "Fizz";
     }
 
-    if(div5){
-        std::cout << "Buzz";
+    if(div8){
+        std::cout << "Slag";
     }
 
-    if(!div3 && !div5){
+    if(!div3 && !div8){
         std::cout << current;
     }
     std::cout << std::endl;
