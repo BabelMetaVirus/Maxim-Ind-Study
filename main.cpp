@@ -1,6 +1,11 @@
 // RFG: Random Fantasy Game.
-#include <iostream>
+#include "App.h"
 
 int main() {
-    std::cout << "Welcome to random fantasy game." << std::endl;
+    App* theApp = App::GetInstance();
+
+    theApp->Initialize();
+    while(theApp->Run()){}
+    theApp->Finalize();
+    return 0;    
 }
