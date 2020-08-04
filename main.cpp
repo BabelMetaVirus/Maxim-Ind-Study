@@ -5,7 +5,9 @@ int main() {
     App* theApp = App::GetInstance();
 
     theApp->Initialize();
-    while(theApp->Run()){}
+    do{
+        std::cout << theApp->GetMessage() << std::endl;
+    }while(theApp->Run());
     theApp->Finalize();
     return 0;    
 }

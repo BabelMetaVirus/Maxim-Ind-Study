@@ -1,7 +1,5 @@
 #include "App.h"
 App* App::instance = nullptr;
-const int App::max_default = 100;
-const int App::min_default = 1;
 
 App::App(void){
     // TODO: Basic value setup here.
@@ -20,11 +18,6 @@ App* App::GetInstance(){
 // True if initialization happens. False if an error occurs.
 bool App::Initialize(void){
     bool flag = true;
-    min = min_default;
-    max = max_default;
-    current = min;
-    std::cout << message << std::endl;
-    message = "Initialized";
     std::cout << message << std::endl;
     return flag;
 }
@@ -32,23 +25,10 @@ bool App::Initialize(void){
 // True if the program is going to continue. False if it's ready to end.
 bool App::Run(void){
     bool flag = true;
-    bool div3 = current % 3 == 0;
-    bool div5 = current % 5 == 0;
-    
-    if(div3){
-        std::cout << "Fizz";
-    }
-
-    if(div5){
-        std::cout << "Buzz";
-    }
-
-    if(!div3 && !div5){
-        std::cout << current;
-    }
-    std::cout << std::endl;
-    current++;
-    flag = current <= max;
+    static int cycle = 0;
+    cycle++;
+    message = "Run Cycle: " + std::to_string(cycle);
+    flag = cycle <= 25;
     return flag;
 }
 // Close out the program.
