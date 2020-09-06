@@ -7,6 +7,7 @@ class App{
     private:
     static App* instance;
     std::string message;
+    static int references;
     App(void);
     public:
     static App* GetInstance(void);
@@ -21,6 +22,12 @@ class App{
     // Close out the program.
     // True if the program is closed out successfully. False otherwise.
     bool Finalize(void);
+    // ReferenceCount: Return the number of references outstanding.
+    static const int ReferenceCount(void);
+    // Release: Release a reference to the instance.
+    void Release(void);
+    // Exists: Tell us if an application instance exists.
+    static const bool Exists(void);
 };
 
 #endif 

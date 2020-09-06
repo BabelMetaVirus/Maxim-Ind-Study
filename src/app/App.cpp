@@ -1,18 +1,20 @@
 #include "App.h"
 App* App::instance = nullptr;
+int App::references = 0;
 
 App::App(void){
     // TODO: Basic value setup here.
-    message = "Created";
+    this->message = "Created";
 }
 App* App::GetInstance(){
     // If the instance doesn't exist yet.
-    if(instance == nullptr){
+    if(App::instance == nullptr){
         // Allocate it.
-        instance = new App();
+        App::instance = new App();
     }
     // Return the pointer to the instance.
-    return instance;
+    App::references++;
+    return App::instance;
 }
 // Start up the program.
 // True if initialization happens. False if an error occurs.
@@ -37,4 +39,19 @@ bool App::Finalize(void){
     bool flag = true;
     std::cout << "Finalized." << std::endl;
     return flag;
+}
+// ReferenceCount: Return the number of references outstanding.
+const int App::ReferenceCount(void){
+    return App::references;
+}
+// Release: Release a reference to the instance.
+void App::Release(void){
+    App::references--;
+    if(App::references == 0){
+        delete App::instance;
+    }
+}
+// Exists: Tell us if an application instance exists.
+const bool App::Exists(void){
+    return App::instance != nullptr;
 }
