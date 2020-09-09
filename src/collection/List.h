@@ -1,5 +1,6 @@
 #ifndef _LIST_H_
 #define _LIST_H_
+#include "Container.h"
 // NOTE: Show how to do assignment without destroying the list entirely.
 namespace Collection{
     template<typename T>
@@ -28,10 +29,13 @@ namespace Collection{
         class Iterator{
             private:
             ListNode* current;
-            bool IsValid(void){return this->current != nullptr;}
+            const bool IsValid(void) const{return this->current != nullptr;}
             public:
             Iterator(void){
                 this->current = nullptr;
+            }
+            Iterator(ListNode* _ptr){
+                this->current = _ptr;
             }
             Iterator& operator=(ListNode* _ptr){
                 this->current = _ptr;
@@ -39,7 +43,10 @@ namespace Collection{
             const bool operator==(ListNode* _ptr) const{
                 return this->current == _ptr;
             }
-            Iterator& operator++(int){
+            const bool operator!=(ListNode* _ptr) const{
+                return this->current != _ptr;
+            }
+            Iterator operator++(int){
                 Iterator copy = *this;
                 if(this->IsValid()){
                     this->current = this->current->next;
@@ -81,9 +88,9 @@ namespace Collection{
             this->head = nullptr;
             this->tail = nullptr;
             this->Resize(Container::CapacityInvalid);
-            this->type = "List";
+            this->type = _src.type;
             ListNode* current = nullptr;
-            for(it = _src.Begin(); it != _src.End(); it++){
+            for(List<T>::Iterator it = _src.Begin(); it != _src.End(); it++){
                 ListNode* newNode = new ListNode(*it);
                 if(this->IsEmpty()){head = newNode;}
                 else{current->next = newNode;}
@@ -104,9 +111,9 @@ namespace Collection{
                 this->head = nullptr;
                 this->tail = nullptr;
                 this->Resize(Container::CapacityInvalid);
-                this->type = "List";
+                this->type = _src.type;
                 ListNode* current = nullptr;
-                for(it = _src.Begin(); it != _src.End(); it++){
+                for(List<T>::Iterator it = _src.Begin(); it != _src.End(); it++){
                     ListNode* newNode = new ListNode(*it);
                     if(this->IsEmpty()){head = newNode;}
                     else{current->next = newNode;}
@@ -139,13 +146,13 @@ namespace Collection{
 
             newNode->next = this->head;
 
-            if(!this->IsEmpty()){
-                this->head->prev = newNode;
-            }
-            else{
+            if(this->IsEmpty()){
                 this->tail = newNode;
             }
-
+            else
+            {
+                this->head->prev = newNode;
+            }
             this->head = newNode;
             this->Add();
             return true;
@@ -219,6 +226,6 @@ namespace Collection{
             // SUCCEED
             return true;
         }
-    }
+    };
 };
 #endif
