@@ -20,7 +20,7 @@ App* App::GetInstance(){
 // True if initialization happens. False if an error occurs.
 bool App::Initialize(void){
     bool flag = true;
-    std::cout << message << std::endl;
+    this->message = "Initialized.";
     return flag;
 }
 // Run the program.
@@ -29,7 +29,7 @@ bool App::Run(void){
     bool flag = true;
     static int cycle = 0;
     cycle++;
-    message = "Run Cycle: " + std::to_string(cycle);
+    this->message = "Run Cycle: " + std::to_string(cycle);
     flag = cycle <= 25;
     return flag;
 }
@@ -37,7 +37,7 @@ bool App::Run(void){
 // True if the program is closed out successfully. False otherwise.
 bool App::Finalize(void){
     bool flag = true;
-    std::cout << "Finalized." << std::endl;
+    this->message = "Finalized.";
     return flag;
 }
 // ReferenceCount: Return the number of references outstanding.

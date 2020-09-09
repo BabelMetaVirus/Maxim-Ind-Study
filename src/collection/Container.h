@@ -14,7 +14,6 @@ namespace Collection{
 
     class Container{
         private:
-        static const int CapacityInvalid;
         static int currentID; // Store the identity of each container.
         int size; // Size of the container (objects stored).
         int capacity; // Capacity for the container (objects total available).
@@ -26,6 +25,7 @@ namespace Collection{
         virtual void Resize(int _cap);
         virtual void Shrink(int _cap);
         public:
+        static const int CapacityInvalid;
         Container(void);
         virtual ~Container(void){};
         const int Size(void) const;

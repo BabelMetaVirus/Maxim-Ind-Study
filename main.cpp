@@ -17,10 +17,12 @@ int main() {
     std::cout << "Instance Count: " << App::ReferenceCount() << std::endl;
 
     theApp->Initialize();
+    std::cout << theApp->GetMessage() << std::endl;
     do{
         std::cout << theApp->GetMessage() << std::endl;
     }while(theApp->Run());
     theApp->Finalize();
+    std::cout << theApp->GetMessage() << std::endl;
     
 
     while(App::ReferenceCount() != 0){
